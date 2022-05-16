@@ -13,9 +13,11 @@ public class TestGestioneAppartamento {
 		// TODO Auto-generated method stub
 		AppartamentoDAO appartamentoDAOInstance = new AppartamentoDAO();
 		
-		testInserimentoAppartamento(appartamentoDAOInstance);
+		//testInserimentoAppartamento(appartamentoDAOInstance);
 		
-		testUpdateAppartamento(appartamentoDAOInstance);
+		//testUpdateAppartamento(appartamentoDAOInstance);
+		
+		testDeleteAppartamento(appartamentoDAOInstance);
 
 	}
 	
@@ -24,12 +26,12 @@ public class TestGestioneAppartamento {
 		
 		Date dataInputDaStringADate = null;
 		try {
-			dataInputDaStringADate = new SimpleDateFormat("dd/MM/yyyy").parse("22/03/2018");
+			dataInputDaStringADate = new SimpleDateFormat("dd/MM/yyyy").parse("14/09/2020");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int appartamentiPresenti = appartamentoDAOInstance.insert(new Appartamento("Piazza Domitilla", 55, 550, dataInputDaStringADate ));
+		int appartamentiPresenti = appartamentoDAOInstance.insert(new Appartamento(3L, "Girandola", 80, 875, dataInputDaStringADate));
 		
 		if(appartamentiPresenti < 1) {
 			throw new RuntimeException("testInserimentoNegozio : FAILED");
@@ -58,6 +60,28 @@ public class TestGestioneAppartamento {
 		}
 		
 		System.out.println("--------------------- Fine Test Update Appartamenti ----------------------------------------");
+	}
+	
+	private static void testDeleteAppartamento(AppartamentoDAO appartamentoDAOInstance) {
+		System.out.println("--------------------- Inizio Test Delete Appartamenti ----------------------------------------");
+		
+		Date dataInputDaStringADate = null;
+		try {
+			dataInputDaStringADate = new SimpleDateFormat("dd/MM/yyyy").parse("14/09/2020");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Appartamento deleteAppartamento = new Appartamento(3L, "Girandola", 80, 875, dataInputDaStringADate);
+		
+		if(appartamentoDAOInstance.delete(deleteAppartamento) != 0) {
+			System.out.println("L'appartamento e'stato eliminato dal DB");
+		}
+		else {
+			System.out.println("Si e' verificato un errore");
+		}
+		
+		System.out.println("--------------------- Fine Test Delete Appartamenti ----------------------------------------");
 	}
 
 }

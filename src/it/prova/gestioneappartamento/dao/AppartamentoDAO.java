@@ -45,13 +45,13 @@ public class AppartamentoDAO {
 
 		int result = 0;
 		try (Connection c = MyConnection.getConnection();
-				PreparedStatement ps = c
-						.prepareStatement("INSERT INTO appartamento (quartiere, metriquadri, prezzo, data_costruzione) VALUES (?, ?, ?, ?);")) {
+				PreparedStatement ps = c.prepareStatement(
+						"INSERT INTO appartamento (quartiere, metriquadri, prezzo, data_costruzione) VALUES (?, ?, ?, ?);")) {
 
 			ps.setString(1, appartamentoInput.getQuartiere());
 			ps.setInt(2, appartamentoInput.getMetriQuadri());
 			ps.setInt(3, appartamentoInput.getPrezzo());
-			ps.setDate(4,new java.sql.Date(appartamentoInput.getDataCostruzione().getTime()));
+			ps.setDate(4, new java.sql.Date(appartamentoInput.getDataCostruzione().getTime()));
 			result = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class AppartamentoDAO {
 		}
 		return result;
 	}
-	
+
 	public int update(Appartamento appartamentoInput) {
 		if (appartamentoInput == null || appartamentoInput.getId() < 1) {
 			return 0;
@@ -68,14 +68,33 @@ public class AppartamentoDAO {
 
 		int result = 0;
 		try (Connection c = MyConnection.getConnection();
-				PreparedStatement ps = c
-						.prepareStatement("UPDATE appartamento a SET a.quartiere = ?, a.metriquadri = ?, a.prezzo = ?, a.data_costruzione = ? WHERE a.id = ?;")) {
+				PreparedStatement ps = c.prepareStatement(
+						"UPDATE appartamento a SET a.quartiere = ?, a.metriquadri = ?, a.prezzo = ?, a.data_costruzione = ? WHERE a.id = ?;")) {
 
 			ps.setString(1, appartamentoInput.getQuartiere());
 			ps.setInt(2, appartamentoInput.getMetriQuadri());
 			ps.setInt(3, appartamentoInput.getPrezzo());
-			ps.setDate(4,new java.sql.Date(appartamentoInput.getDataCostruzione().getTime()));
+			ps.setDate(4, new java.sql.Date(appartamentoInput.getDataCostruzione().getTime()));
 			ps.setLong(5, appartamentoInput.getId());
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// rilancio in modo tale da avvertire il chiamante
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+
+	public int delete(Appartamento appartamentoInput) {
+		if (appartamentoInput == null || appartamentoInput.getId() < 1) {
+			return 0;
+		}
+
+		int result = 0;
+		try (Connection c = MyConnection.getConnection();
+				PreparedStatement ps = c.prepareStatement("DELETE FROM appartamento a WHERE a.id = ?;")) {
+
+			ps.setLong(1, appartamentoInput.getId());
 			result = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
