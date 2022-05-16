@@ -3,6 +3,7 @@ package it.prova.gestioneappartamento.test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import it.prova.gestioneappartamento.dao.AppartamentoDAO;
 import it.prova.gestioneappartamento.model.Appartamento;
@@ -20,6 +21,8 @@ public class TestGestioneAppartamento {
 		//testUpdateAppartamento(appartamentoDAOInstance);
 		
 		//testDeleteAppartamento(appartamentoDAOInstance);
+		
+		testFindById(appartamentoDAOInstance);
 
 	}
 	
@@ -86,6 +89,20 @@ public class TestGestioneAppartamento {
 		System.out.println("--------------------- Fine Test Delete Appartamenti ----------------------------------------");
 	}
 	
-	
+	private static void testFindById(AppartamentoDAO appartamentoDAOInstance) {
+		System.out.println("--------------------- Inizio Test Find By ID Appartamenti ----------------------------------------");
+		
+		List<Appartamento> elencoAppartamentiPresenti = appartamentoDAOInstance.list();
+		if (elencoAppartamentiPresenti.size() < 1)
+			throw new RuntimeException("testFindByIdNegozio : FAILED, non ci sono negozi sul DB");
+		
+		Appartamento appartamentoID = new Appartamento();
+		appartamentoID.setId(1L);
+		Long id = appartamentoID.getId(); 
+		
+		System.out.println(appartamentoDAOInstance.findByID(id));
+		
+		System.out.println("--------------------- Inizio Test Find By ID Appartamenti ----------------------------------------");
+	}
 
 }

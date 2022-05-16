@@ -115,7 +115,8 @@ public class AppartamentoDAO {
 				if (rs.next()) {
 					result.setId(rs.getLong("a.id"));
 					result.setQuartiere(rs.getString("a.quartiere"));
-					result.setPrezzo(rs.getInt("a.metriQuadri"));
+					result.setMetriQuadri(rs.getInt("a.metriquadri"));
+					result.setPrezzo(rs.getInt("a.prezzo"));
 					result.setDataCostruzione(rs.getDate("a.data_costruzione"));
 				}
 			}

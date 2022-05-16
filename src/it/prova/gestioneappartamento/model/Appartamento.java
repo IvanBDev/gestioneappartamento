@@ -72,6 +72,6 @@ public class Appartamento {
 	
 	@Override
 	public String toString() {
-		return "Negozio [id= " + id + ", nome= " + quartiere +  ", metri quadrati= " + metriQuadri + ", prezzo= " + prezzo+ ", data costruzione="+ dataCostruzione +"]";
+		return "Negozio [id= " + id + ", quartiere= " + quartiere +  ", metri quadrati= " + metriQuadri + ", prezzo= " + prezzo+ ", data costruzione="+ dataCostruzione +"]";
 	}
 }
