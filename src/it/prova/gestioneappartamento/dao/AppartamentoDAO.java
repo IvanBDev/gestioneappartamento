@@ -41,8 +41,8 @@ public class AppartamentoDAO {
 
 	public int insert(Appartamento appartamentoInput) {
 
-		/*if (appartamentoInput.getId() < 1)
-			throw new RuntimeException("Impossibile inserire Articolo: Negozio mancante!");*/
+		if (appartamentoInput == null)
+			throw new RuntimeException("Impossibile inserire l' appartamento: Appartamento mancante!");
 
 		int result = 0;
 		try (Connection c = MyConnection.getConnection();

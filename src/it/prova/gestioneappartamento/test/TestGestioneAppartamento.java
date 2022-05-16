@@ -22,12 +22,12 @@ public class TestGestioneAppartamento {
 		
 		Date dataInputDaStringADate = null;
 		try {
-			dataInputDaStringADate = new SimpleDateFormat("dd/MM/yyyy").parse("10/05/2015");
+			dataInputDaStringADate = new SimpleDateFormat("dd/MM/yyyy").parse("22/03/2018");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int appartamentiPresenti = appartamentoDAOInstance.insert(new Appartamento("San Marco", 77, 650, dataInputDaStringADate ));
+		int appartamentiPresenti = appartamentoDAOInstance.insert(new Appartamento("Piazza Domitilla", 55, 550, dataInputDaStringADate ));
 		
 		if(appartamentiPresenti < 1) {
 			throw new RuntimeException("testInserimentoNegozio : FAILED");
