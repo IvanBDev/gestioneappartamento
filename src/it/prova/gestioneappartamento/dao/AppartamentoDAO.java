@@ -41,18 +41,18 @@ public class AppartamentoDAO {
 
 	public int insert(Appartamento appartamentoInput) {
 
-		if (appartamentoInput.getId() < 1)
-			throw new RuntimeException("Impossibile inserire Articolo: Negozio mancante!");
+		/*if (appartamentoInput.getId() < 1)
+			throw new RuntimeException("Impossibile inserire Articolo: Negozio mancante!");*/
 
 		int result = 0;
 		try (Connection c = MyConnection.getConnection();
 				PreparedStatement ps = c
-						.prepareStatement("INSERT INTO appartamento (quartiere, metriquadri, prezzo, data_creazione) VALUES (?, ?, ?, ?);")) {
+						.prepareStatement("INSERT INTO appartamento (quartiere, metriquadri, prezzo, data_costruzione) VALUES (?, ?, ?, ?);")) {
 
 			ps.setString(1, appartamentoInput.getQuartiere());
 			ps.setInt(2, appartamentoInput.getMetriQuadri());
 			ps.setInt(3, appartamentoInput.getPrezzo());
-			ps.setDate(4, (Date) appartamentoInput.getDataCostruzione());
+			ps.setDate(4,new java.sql.Date(appartamentoInput.getDataCostruzione().getTime()));
 			result = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
