@@ -13,11 +13,13 @@ public class TestGestioneAppartamento {
 		// TODO Auto-generated method stub
 		AppartamentoDAO appartamentoDAOInstance = new AppartamentoDAO();
 		
+		System.out.println("Nella tabella appartamento ci sono: "+ appartamentoDAOInstance.list().size() +" elementi");
+		
 		//testInserimentoAppartamento(appartamentoDAOInstance);
 		
 		//testUpdateAppartamento(appartamentoDAOInstance);
 		
-		testDeleteAppartamento(appartamentoDAOInstance);
+		//testDeleteAppartamento(appartamentoDAOInstance);
 
 	}
 	
@@ -83,5 +85,7 @@ public class TestGestioneAppartamento {
 		
 		System.out.println("--------------------- Fine Test Delete Appartamenti ----------------------------------------");
 	}
+	
+	
 
 }
