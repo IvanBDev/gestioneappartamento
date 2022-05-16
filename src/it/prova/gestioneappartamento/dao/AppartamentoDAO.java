@@ -103,10 +103,10 @@ public class AppartamentoDAO {
 		}
 		return result;
 	}
-	
+
 	public Appartamento findByID(Long idAppartamento) {
 		Appartamento result = new Appartamento();
-		
+
 		try (Connection c = MyConnection.getConnection();
 				PreparedStatement ps = c.prepareStatement("SELECT * FROM appartamento a WHERE a.id = ?;")) {
 
@@ -125,6 +125,51 @@ public class AppartamentoDAO {
 			// rilancio in modo tale da avvertire il chiamante
 			throw new RuntimeException(e);
 		}
+		return result;
+	}
+
+	public List<Appartamento> findByExample(Appartamento example) {
+		if (example == null) {
+			throw new RuntimeException("Errore: il criterio di ricerca e' vuoto");
+		}
+
+		List<Appartamento> result = new ArrayList<Appartamento>();
+		String query = "SELECT * FROM appartamento a WHERE ";
+		if (example.getQuartiere() != null && example.getQuartiere() != "") {
+			query += "a.quartiere = ? AND ";
+		}
+		if (example.getMetriQuadri() != 0) {
+			query += "a.metriquadri = ? AND";
+		}
+		if (example.getPrezzo() != 0) {
+			query += "a.prezzo = ? AND ";
+		}
+		if (example.getDataCostruzione() != null) {
+			query += "a.data_cotruzione";
+		}
+
+		query += ";";
+
+		try (Connection c = MyConnection.getConnection();
+				PreparedStatement ps = c.prepareStatement(query);
+				ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				Appartamento appartamentoTemp = new Appartamento();
+				appartamentoTemp.setId(rs.getLong("a.id"));
+				appartamentoTemp.setQuartiere(rs.getString("a.quartiere"));
+				appartamentoTemp.setPrezzo(rs.getInt("a.metriQuadri"));
+				appartamentoTemp.setDataCostruzione(rs.getDate("a.data_costruzione"));
+
+				result.add(appartamentoTemp);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			// rilancio in modo tale da avvertire il chiamante
+			throw new RuntimeException(e);
+		}
+		
 		return result;
 	}
 
