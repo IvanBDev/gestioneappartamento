@@ -22,7 +22,9 @@ public class TestGestioneAppartamento {
 		
 		//testDeleteAppartamento(appartamentoDAOInstance);
 		
-		testFindById(appartamentoDAOInstance);
+		//testFindById(appartamentoDAOInstance);
+		
+		testFindByExample(appartamentoDAOInstance);
 
 	}
 	
@@ -104,5 +106,29 @@ public class TestGestioneAppartamento {
 		
 		System.out.println("--------------------- Inizio Test Find By ID Appartamenti ----------------------------------------");
 	}
-
+	
+	private static void testFindByExample(AppartamentoDAO appartamentoDAOInstance) {
+		System.out.println("--------------------- Inizio Test Find By Example Appartamenti ----------------------------------------");
+		
+		List<Appartamento> elencoAppartamentiPresenti = appartamentoDAOInstance.list();
+		if (elencoAppartamentiPresenti.size() < 1)
+			throw new RuntimeException("testFindByIdNegozio : FAILED, non ci sono negozi sul DB");
+		
+		Date dataInputDaStringADate = null;
+		try {
+			dataInputDaStringADate = new SimpleDateFormat("dd/MM/yyyy").parse("14/09/2020");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Appartamento ricerca = new Appartamento("", 0, 650, dataInputDaStringADate);
+		List<Appartamento> risultatoDellaRicerca = appartamentoDAOInstance.findByExample(ricerca);
+		
+		for (Appartamento appartamentoItem : risultatoDellaRicerca) {
+			System.out.println(appartamentoItem);
+		}
+		
+		System.out.println("--------------------- Fine Test Find By Example Appartamenti ----------------------------------------");
+	}
 }
